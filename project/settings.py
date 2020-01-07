@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #custome app
+    'news',
 ]
 
 MIDDLEWARE = [
@@ -51,12 +53,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-template_dir = os.path.join(BASE_DIR, "templates")
+template_dirs = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [template_dir],
+        'DIRS': [template_dirs],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,5 +124,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
