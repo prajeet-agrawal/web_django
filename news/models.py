@@ -21,4 +21,7 @@ class News(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     cover_image = models.ImageField(upload_to="news", null=True)
 
+    class Meta:
+        verbose_name_plural = 'news'
+
 
