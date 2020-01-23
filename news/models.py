@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-# from django.conf import settings
+from django.conf import settings
 
 # Create your models here.
 # django-ORM (object relational mapping)
