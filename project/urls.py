@@ -26,6 +26,10 @@ urlpatterns = [
     path("", views.NewsTemplateView.as_view(), name="home"),
     path("news/", include("news.urls")),
     path("accounts/", include("accounts.urls")),
+    
+    # urls for apis
+    path("api-auth/", include("rest_framework.urls")),
+    path("apis/accounts/", include("accounts.apis.api_urls")),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT
 )
 
