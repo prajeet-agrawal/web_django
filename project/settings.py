@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$it%_6e6!x%!)*5600zrhjsgtf!+5f2%n$5!(_6o#6tnz!(ts('
+SECRET_KEY = os.getenv("SECRET_KEY")
+#SECRET_KEY = '$it%_6e6!x%!)*5600zrhjsgtf!+5f2%n$5!(_6o#6tnz!(ts('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,10 +140,14 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = 'a7447cfca7f280'
-EMAIL_HOST_PASSWORD = 'f8cfb426e7cd2b'
-EMAIL_PORT = '2525'
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+
+# EMAIL_HOST_USER = 'a7447cfca7f280'
+# EMAIL_HOST_PASSWORD = 'f8cfb426e7cd2b'
+# EMAIL_PORT = '2525'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
