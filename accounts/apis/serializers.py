@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from accounts.models import User, Profile
+from django.db import transaction
 
 # class UserSerializer(serializers.Serializer):
 #     first_name = serializers.CharField()
@@ -8,28 +9,23 @@ from accounts.models import User, Profile
 class ProfileSerailizer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        field = "dob", "address", "contact_no"
+        fields = "dob", "address", "contact_num"
 
 
- class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerailizer()
 
     class Meta:
         model = User
-        fields = "first_name", "last_name", "email", "username", "profile"
+        fields = "first_name", "last_name", "email", "username", "password", "role", "profile"
+        extra_kwargs = {"password": {"write_only": True}}
 
-     def create(self, validate_data):
+    @transaction.atomic
+    def create(self, validate_data):
         profile = validate_data.pop("profile")
         raw_password = validate_data.pop("password")
-        validate_data
-        pass
-
-
- """{
-     "first_name": "prajeet", 
-     "last_name": "agrawal", 
-     "profile": {
-         "dob": 1983/03/14, 
-         "address": "ktm"
-     }
- }"""
+        user = User(**validate_data)
+        user.set_password(raw_password)
+        user.save()
+        Profile.objects.create(**profile, user=user)
+        return user

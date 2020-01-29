@@ -30,6 +30,7 @@ urlpatterns = [
     # urls for apis
     path("api-auth/", include("rest_framework.urls")),
     path("apis/accounts/", include("accounts.apis.api_urls")),
+    path("apis/news/", include("news.apis.api_urls")),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT
 )
 
