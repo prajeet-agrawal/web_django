@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from news.models import Category, News
+from accounts.apis.serializers import UserSerializer
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
@@ -9,8 +10,12 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    category = CategoryListSerializer(many=True)
+    category = CategoryListSerializer(read_only=True, many=True)
+    category_ids = serializers.PrimaryKeyRelatedField(
+        write_only=True, many=True, queryset=Category.objects.all(), source="category"
+    )
+    # author = UserSerializer(read_only=True)
 
     class Meta:
         model = News
-        fields = "id", "title", "content", "cover_image", "author", "category", "created_at"
+        fields = "id", "title", "author", "content", "category", "category_ids", "created_at"
