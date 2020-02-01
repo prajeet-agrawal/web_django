@@ -23,6 +23,10 @@ from rest_framework_simplejwt.views import (
  )
 
 from news import views
+from django.conf.urls import url
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='News Portal API')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -35,6 +39,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     
     # urls for apis
+    path("docs/", schema_view),
     path("api-auth/", include("rest_framework.urls")),
     path("apis/accounts/", include("accounts.apis.api_urls")),
     path("apis/news/", include("news.apis.api_urls")),
